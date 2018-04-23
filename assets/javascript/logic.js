@@ -10,6 +10,8 @@ var config = {
 
 firebase.initializeApp(config);
 
+var database = firebase.database();
+
 //Function for adding new trains with button
 $("#add-train-btn").on("click", function(event) {
     event.preventDefault();
@@ -17,10 +19,9 @@ $("#add-train-btn").on("click", function(event) {
     //Grab user input
     var nameTrain = $("#train-name-input").val().trim();
     var destination = $("#destination-input").val().trim();
-    var firstArrival = $("#first-arrival-input").val().trim();
+    var firstArrival = moment($("#frequency-input").val().trim(), "HH").format("X");
     var frequency = $("#frequency-input").val().trim();
     
-    console.log(nameTrain);
     //Create an object to store input data
     var newTrain = {
         name: nameTrain,
@@ -29,7 +30,10 @@ $("#add-train-btn").on("click", function(event) {
         frequency: frequency,
     };
 
-    console.log(newTrain);
+    //Upload train data to the database
+    database.ref().push(newTrain);
+
+    console.log(newTrain.first);
 });
 
 //Create an object to store train input data
