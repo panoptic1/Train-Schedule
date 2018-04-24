@@ -33,8 +33,6 @@ $("#add-train-btn").on("click", function(event) {
     //Upload train data to the database
     database.ref().push(newTrain);
 
-    console.log(newTrain.first);
-
     //Alert user that a train has been added
     alert("A new train route has been added.");
 
@@ -45,8 +43,26 @@ $("#add-train-btn").on("click", function(event) {
     $("#frequency-input").val("");
 });
 
-//Create an object to store train input data
+//Create a firebase event that adds html element for train info in database.
 
+database.ref().on("child_added", function(childSnapshot, prevChildKey){
+
+    //Store all data into a variable
+    var trainName = childSnapshot.val().name;
+    var destination = childSnapshot.val().destination;
+    var firstArrival = childSnapshot.val().first;
+    var frequency = childSnapshot.val().frequency;
+
+    //Check train info variables
+    console.log(trainName);
+    console.log(destination);
+    console.log(firstArrival);
+    console.log(frequency);
+
+    //Make the first arrival time intellible
+    var firstArrivalClear = moment.unix(firstArrival).format("HH");
+
+});
 
 
 
