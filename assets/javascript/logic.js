@@ -19,7 +19,7 @@ $("#add-train-btn").on("click", function(event) {
     //Grab user input
     var nameTrain = $("#train-name-input").val().trim();
     var destination = $("#destination-input").val().trim();
-    var firstArrival = moment($("#time").val().trim(), "HH").format("X");
+    var firstArrival = moment($("#time").val().trim(), "HH:mm").format("HH:mm");
     var frequency = $("#frequency-input").val().trim();
     
     //Create an object to store input data
@@ -41,6 +41,7 @@ $("#add-train-btn").on("click", function(event) {
     $("#destination-input").val("");
     $("#time").val("");
     $("#frequency-input").val("");
+
 });
 
 //Create a firebase event that adds html element for train info in database.
@@ -53,15 +54,8 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     var firstArrival = childSnapshot.val().first;
     var frequency = childSnapshot.val().frequency;
 
-    //Check train info variables
-    console.log(trainName);
-    console.log(destination);
     console.log(firstArrival);
-    console.log(frequency);
-
-    //Make the first arrival time intellible
-    var firstArrivalClear = moment.unix(firstArrival).format("HH");
-
+ 
 });
 
 
