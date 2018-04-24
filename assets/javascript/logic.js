@@ -19,7 +19,7 @@ $("#add-train-btn").on("click", function(event) {
     //Grab user input
     var nameTrain = $("#train-name-input").val().trim();
     var destination = $("#destination-input").val().trim();
-    var firstArrival = moment($("#frequency-input").val().trim(), "HH").format("X");
+    var firstArrival = moment($("#time").val().trim(), "HH").format("X");
     var frequency = $("#frequency-input").val().trim();
     
     //Create an object to store input data
@@ -34,6 +34,15 @@ $("#add-train-btn").on("click", function(event) {
     database.ref().push(newTrain);
 
     console.log(newTrain.first);
+
+    //Alert user that a train has been added
+    alert("A new train route has been added.");
+
+    //Clear out all of the input fields
+    $("#train-name-input").val("");
+    $("#destination-input").val("");
+    $("#time").val("");
+    $("#frequency-input").val("");
 });
 
 //Create an object to store train input data
